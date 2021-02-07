@@ -2,19 +2,19 @@ class CategoriesController < ApplicationController
   # GET /categories
   def index
     categories = Category.all
-    render json: categories, status: :ok
+    render json: categories, include: :transactions
   end
 
   # GET /categories/:id
   def show
     category = Category.find(params[:id])
-    render json: category, status: :ok, include: :transactions
+    render json: category, include: :transactions
   end
 
   # POST /categories
   def create
     category = Category.new(category_params)
-
+    category.user = current_user
     if category.save
       render json: category, status: :created
     else
@@ -25,7 +25,6 @@ class CategoriesController < ApplicationController
   # PATCH /categories/:id
   def update
     category = Category.find(params[:id])
-
     if category.update(category_params)
       render json: category, status: :ok
     else

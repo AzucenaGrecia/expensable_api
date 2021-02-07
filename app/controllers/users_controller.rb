@@ -1,26 +1,30 @@
 class UsersController < ApplicationController
+  skip_before_action :authorize, only: :create
+
   # POST /signup
   def create
     @user = User.new(user_params)
     if @user.save
-      render json: @user, status: :created
+      render json: { id: @user.id, email: @user.email, first_name: @user.first_name, last_name: @user.last_name, phone: @user.phone, token: @user.token },
+             status: :created
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @user.errors.full_messages, status: :unprocessable_entity
     end
   end
 
   # GET /profile/:id
   def show
     @user = User.find(params[:id])
-    render json: @user, status: :ok
+    render json: { id: @user.id, email: @user.email, first_name: @user.first_name, last_name: @user.last_name, phone: @user.phone, token: @user.token }
   end
 
   # PATCH /profile
   def update
     if current_user.update(user_params)
-      render json: current_user, status: :ok
+      render json: {  id: current_user.id, email: current_user.email, first_name: current_user.first_name,
+                      last_name: current_user.last_name, phone: current_user.phone, token: current_user.token }
     else
-      render json: current_user.errors, status: :unprocessable_entity
+      render json: current_user.errors.full_messages, status: :unprocessable_entity
     end
   end
 
