@@ -14,8 +14,7 @@ class UsersController < ApplicationController
 
   # GET /profile
   def show
-    @user = User.find(current_user.id)
-    render json: { id: @user.id, email: @user.email, first_name: @user.first_name, last_name: @user.last_name, phone: @user.phone, token: @user.token }
+    render json: { id: current_user.id, email: current_user.email, first_name: current_user.first_name, last_name: current_user.last_name, phone: current_user.phone, token: current_user.token }
   end
 
   # PATCH /profile
