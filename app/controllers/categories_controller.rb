@@ -16,7 +16,7 @@ class CategoriesController < ApplicationController
     category = Category.new(category_params)
     category.user = current_user
     if category.save
-      render json: category, status: :created
+      render json: category, status: :created, include: :transactions
     else
       render json: category.errors, status: :bad_request
     end
