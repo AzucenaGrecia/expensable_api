@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
   post '/signup' => 'users#create'
-  get '/profile/:id' => 'users#show'
+  get '/profile' => 'users#show'
   patch '/profile' => 'users#update'
   delete '/profile' => 'users#destroy'
   resources :categories, except: %i[new edit] do

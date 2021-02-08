@@ -12,9 +12,9 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /profile/:id
+  # GET /profile
   def show
-    @user = User.find(params[:id])
+    @user = User.find(current_user.id)
     render json: { id: @user.id, email: @user.email, first_name: @user.first_name, last_name: @user.last_name, phone: @user.phone, token: @user.token }
   end
 
